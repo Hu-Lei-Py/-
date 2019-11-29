@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+{% load staticfiles %}
+    <link rel="stylesheet" href="{% static 'css/one.css' %}">
+</head>
+<body>
+<form id="duo" action="/job/dec_jie/" method="post">
+    {% csrf_token %}
+    <img src="{% static 'img/one.png' %}" width="265" height="90">
+    <input name="shu" class="one" type="text" placeholder="输入内容">
+    <input class="two" type="submit" value="职业搜索">
+</form>
+
+</body>
+</html>

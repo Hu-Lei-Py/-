@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    {% load staticfiles %}
+    <script src="{% static 'js/jquery-1.12.4.min.js' %}"></script>
+    <style>
+        #tu {
+            width: 200px;
+            height: 200px;
+        }
+    </style>
+</head>
+<body>
+<h2>购物车列表</h2>
+{#<form>#}
+{% for i in list_data %}
+    <div>
+        <hr>
+        <p><input class="xiao" type="checkbox" name="goods_che"
+                  value="{{ i.titie.id }}">标题:{{ i.titie.title }}<span></span></p>
+        <p><img id="tu" src="{{ i.titie.image }}"></p>
+        <p class="ge">价格：{{ i.titie.price }}</p>
+
+        <input type="submit" value="+" class="jia">
+        <input id="shu" type="text" value="{{ i.num }}" name="goods_shu"  onkeyup="value=value.replace(/[^\d]/g,'')">
+        <input type="submit" value="-" class="jian">
+    </div>
+{% endfor %}
+<button id="tj">提交</button>
+
+{#</form>#}
+
+
+</body>
+<script>
+
+    $(function () {
+        $("#tj").click(function () {
+            {#res = $(".p2").attr("name");#}
+
+            {#res2 = $('input[type="checkbox"]:checkbox');#}
+
+            res2 = $('input[type="checkbox"]:checked');
+            gid = res2.attr("value");
+
+            var order_gid = [];
+            res2.each(function () {
+                {#obj_checkbox= $('input[type="checkbox"]:checked');#}
+                id = $(this).attr("value");
+                console.log(id);
+                liang = $(this).parent().parent().find("[type='text']");
+                cd = liang.attr("value");
+                console.log(cd);
+                order_gid.push(id);
+            });
+
+            Se_list = [];
+            res = [gid, cd];
+            Se_list.push(res);
+            console.log(order_gid);
+            console.log(order_gid.join('-'));
+            $.ajax({
+                url: "/gouwuche/",
+                type: "POST",
+                traditional: true,
+                data: {"id": Se_list},
+                success: function (a) {
+                    alert(a);
+                    obj_a = JSON.parse(a);
+                    alert(obj_a);
+                    if(obj_a['status']==0){
+                        window.location.href='http://127.0.0.1:8000/Cart/order/?gid='+order_gid
+                    }else{
+                        alert('GUN')
+                    }
+                }
+            })
+        })
+    });
+     {# 加 减 #}
+     $(function () {
+        {#加#}
+        $(".jia").click(function () {
+            c = $("#shu").val();
+            num = parseInt(c) + 1;
+            $("input").eq(2).val(num);
+        });
+        {#减#}
+        $(".jian").click(function () {
+            c = $("#shu").val();
+            num = parseInt(c) - 1;
+            ju = $("input").eq(2).val(num);
+            if (c <= 1) {
+                $("#shu").val(1)
+            }
+        });
+    });
+
+</script>
+</html>
+
+

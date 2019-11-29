@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    {% load staticfiles %}
+    <link rel="stylesheet" href="{% static 'css/list.css' %}">
+    <link rel="stylesheet" href="{% static 'css/bootstrap.css' %}">
+    <script src="{% static 'js/bootstrap.js' %}"></script>
+</head>
+<body>
+
+<!--头部-->
+<header class="clearfix" id="yao">
+
+    <img src="{% static 'img/one.png' %}" width="132.5" height="45"/>
+
+    <form id="zhu" action="" method="post">
+         {% csrf_token %}
+        <input name="lie" type="text" class="keyword" value="{{ key }}">
+        <input class="two" type="submit" value="职业搜索">
+    </form>
+
+</header>
+
+
+<!--主体-->
+<section>
+
+    <table class="table table-hover">
+
+<!--        未来会对tr进行遍历填入数据-->
+        {% for job in job_data %}
+        <tr>
+
+            <td>
+                <dl>
+                    <dt>职位标题:{{ job.name }}</dt>
+                    <dd>详细信息1:{{ job.company }}</dd>
+                    <dd>详细信息n:{{ job.salary }}</dd>
+                </dl>
+            </td>
+
+        </tr>
+         {% endfor %}
+
+    </table>
+
+</section>
+<!--底部-->
+<footer>
+    版权声明：数据来源于前程无忧，开发者python一班
+</footer>
+
+</body>
+</html>
+

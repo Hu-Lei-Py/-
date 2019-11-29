@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    {% load staticfiles %}
+    <script src="{% static 'js/jquery-1.12.4.min.js' %}"></script>
+    <style>
+        img {
+            width: 200px;
+            height: 200px;
+        }
+
+        #zong {
+            font-size: 40px;
+        }
+        .he{
+            font-size: 40px;
+        }
+
+    </style>
+</head>
+<body>
+
+<div>
+    <h2 class="biao">{{ list.title }}
+        <p class="ge">{{ list.price }}</p>
+    </h2>
+</div>
+
+
+<div>
+    <p class="he">总价格:<span id="zong"></span></p>
+{#    <button class="jia">+</button>#}
+    <input type="submit" value="+" class="jia">
+    <input type="text" id="shu" value="1" onkeyup="value=value.replace(/[^\d]/g,'')"/>
+    <input type="submit" value="-" class="jian">
+{#    <button class="jian" >-</button>#}
+</div>
+<img src="{{ list.image }}">
+</table>
+
+</body>
+<script>
+    $(function () {
+        {#加#}
+        $(".jia").click(function () {
+            c = $("#shu").val();
+            num = parseInt(c) + 1;
+            $("input").eq(1).val(num);
+            f()
+        });
+        {#减#}
+        $(".jian").click(function () {
+            c = $("#shu").val();
+            num = parseInt(c) - 1;
+            ju = $("input").eq(1).val(num);
+            if (c <= 1) {
+                $("#shu").val(1)
+            }
+            f()
+        });
+        {#合#}
+        function f() {
+            ge = $(".ge").text();
+            c = $("#shu").val();
+            cheng = ge * c;
+            $("#zong").text(cheng.toFixed(2))
+
+        }
+
+
+    });
+
+</script>
+</html>

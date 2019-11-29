@@ -1,0 +1,30 @@
+#yao img{
+    float:left;
+    height: 60px;
+    width:200px;
+}
+#zhu{
+    /*float: left;*/
+    height: 60px;
+    padding-top: 11px;
+    /*line-height: 10px;*/
+    /*background-color: black;*/
+}
+.keyword{
+    height: 40px;
+    width:400px;
+}
+header{
+    /*background-color: red;*/
+}
+
+.clearfix:after{
+    content: "";
+    display: table;
+    clear: both;
+}
+.two{
+    height: 40px;
+    width: 90px;
+    margin-left: -5px;
+}

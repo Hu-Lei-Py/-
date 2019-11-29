@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    {% load staticfiles %}
+    <script src="{% static 'js/jquery-1.12.4.min.js' %}"></script>
+</head>
+<body>
+<h1>5555555</h1>
+</body>
+<script>
+    $.ajax({
+        url: "/paging/branch/",
+        type: "GET",
+        data: {"id": 2},
+        success: function (a) {
+            alert(a)
+        }
+    })
+
+</script>
+</html>

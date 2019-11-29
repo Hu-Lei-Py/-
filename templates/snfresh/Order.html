@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>订单确认页</title>
+    {% load staticfiles %}
+    <link rel="stylesheet" href="{% static 'css/bootstrap.css' %}">
+{#    <script src="{% static 'js/jquery-3.4.1.js' %}"></script>#}
+    <script src="{% static 'js/bootstrap.js' %}"></script>
+</head>
+<body>
+
+<form action="/Cart/submit/" method="post">
+<div class="container">
+    <div class="page-header">
+        <h1>订单确认
+            <small>核对好信息，准备提交</small>
+        </h1>
+    </div>
+</div>
+
+
+{#商品确认#}
+<div class="container">
+    <div class="panel panel-default">
+        <div class="panel-heading">商品确信</div>
+        <div class="panel-body">
+            <table class="table table-condensed">
+                <thead>
+                <tr>
+                    <th>序号</th>
+                    <th>图片地址</th>
+                    <th>商品名称</th>
+                    <th>单价</th>
+                    <th>数量</th>
+                    <th>单行小结</th>
+                </tr>
+                </thead>
+                {% for good in good_list %}
+                    <tbody>
+                    <tr>
+                        <td>{{ forloop.counter }}</td>
+                        <td><img src="{{ good.good_line.image }}" alt="" width="60px" height="60px"></td>
+                        <td>{{ good.good_line.title }}<td>
+                        <td>{{ good.good_line.price }}</td>
+                        <td>{{ good.number}}</td>
+                        <td>{{ good.total_price}}</td>
+                    </tr>
+                    </tbody>
+                {% endfor %}
+            </table>
+        </div>
+    </div>
+
+
+</div>
+
+
+{#地址确定#}
+<div class="container">
+
+    <div class="panel panel-default">
+
+        <div class="panel-heading">
+            <h3 class="panel-title">地址确定</h3>
+        </div>
+        {% for user_addre in user_addres %}
+        <div class="panel-body">
+            {% if user_addre.id == 1%}
+             <input type="radio" checked name="browser" value="{{ user_addre.addr }}-{{ user_addre.name }}-{{ user_addre.phone }}">{{ user_addre.addr }}-{{ user_addre.name }}-{{ user_addre.phone }}
+            {% else%}
+             <input type="radio" name="browser" value="{{ user_addre.addr }}-{{ user_addre.name }}-{{ user_addre.phone }}">{{ user_addre.addr }}-{{ user_addre.name }}-{{ user_addre.phone }}
+            {% endif %}
+        </div>
+        {% endfor %}
+    </div>
+</div>
+
+{#支付方式确定#}
+<div class="container">
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h3 class="panel-title">支付方式确定</h3>
+        </div>
+        {% for method in Payment_method.values %}
+        <div class="panel-body"> {#  method  {"Payment_method":[]}  #}
+            <input type="radio" name="browse">{{ method.0 }}<br><br>
+            <input type="radio" name="browse">{{ method.1 }}<br><br>
+            <input type="radio" name="browse">{{ method.2 }}<br><br>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-2 col-md-offset-10">
+{#            <button type="button" class="btn btn-success">确认并提交</button>#}
+                <input name="ti" class="btn btn-success" type="submit" value="确认并提交">
+        </div>
+    </div>
+</div>
+</form>
+
+
+</body>
+<script>
+     $(function(){
+            $('input:radio').click(function(){
+                var domName = $(this).attr('name');
+                var $radio = $(this);
+                if ($radio.data('waschecked') == true){
+                    $radio.prop('checked', false);
+                    $("input:radio[name='" + domName + "']").data('waschecked',false);
+                } else {
+                    $radio.prop('checked', true);
+                    $("input:radio[name='" + domName + "']").data('waschecked',false);
+                    $radio.data('waschecked', true);
+                }
+            });
+        });
+</script>
+</html>

@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    {% load staticfiles %}
+    <link rel="stylesheet" href="{% static 'css/bootstrap.css' %}">
+    <script src="{% static 'js/bootstrap.js' %}"></script>
+    <script src="{% static 'js/jquery-1.12.4.min.js' %}"></script>
+
+    <style>
+        li {
+        {#border:1px solid red;#} list-style: none;
+        }
+
+        .col-xs-3 {
+            padding-left: 20px;
+        }
+
+        .goods img {
+            margin-left: -2px;
+        }
+
+        ul {
+            margin-left: -40px;
+        }
+    </style>
+</head>
+<body>
+<header>
+    <div class="container">
+        <div class="row">
+            <ul>
+                <li class="col-xs-3"><img src="{% static 'img/snlogo.png' %}" height="100" width="190"/></li>
+                <li class="col-xs-9">搜索区</li>
+            </ul>
+        </div>
+    </div>
+</header>
+
+<section>
+    <div class="container">
+        {% for foo in  res_name %}
+            <div class="row">
+                <ul>
+                    <li class="col-xs-3">
+
+                        <a href="/zong/{{ foo.id }}">{{ foo.title }}</a>
+
+                        <img src="{{ foo.type_pic }}" height="600" width="238"/>
+                    </li>
+                    <div class="col-xs-9">
+                        <div class="row">
+                            <ul>
+                                {% for fone in foo.show %}
+                                    <li class="col-xs-3">
+                                        <div class="goods"><img src="{{ fone.image }}" height="200" width="200"/></div>
+                                        <a href="/zong/xiang/{{ fone.id }}/"><div class="title">{{ fone.title }}</div></a>
+                                        <div class="price">
+                                            <span>{{ fone.price }}</span>
+                                            <span name="{{ fone.id }}" class="li">添加到购物车</span>
+                                        </div>
+                                    </li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                    </div>
+                </ul>
+            </div>
+        {% endfor %}
+    </div>
+
+
+</section>
+
+
+<footer>
+    <div class="container">
+        <div class="row">
+            <ul>
+                <li class="col-xs-3">正品保障</li>
+                <li class="col-xs-3">急速物流</li>
+                <li class="col-xs-3">售后无忧</li>
+                <li class="col-xs-3">特色服务</li>
+            </ul>
+        </div>
+    </div>
+
+</footer>
+
+</body>
+<script>
+    $(function () {
+        $(".li").click(function () {
+            res = $(this).attr("name");
+            alert(res);
+           $.ajax({
+               url:"/test/",
+               type:"GET",
+               data:{"id":res},
+               success:function (a) {
+                   alert(a);
+               }
+           })
+        })
+    })
+</script>
+</html>
+
+{#192.168.56.128#}
